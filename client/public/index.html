@@ -37,6 +37,38 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
   />
+  <script>
+   //prehiding snippet for Adobe Target with asynchronous tags deployment
+   ;(function(win, doc, style, timeout) {
+   var STYLE_ID = 'at-body-style';
+   function getParent() {
+      return doc.getElementsByTagName('head')[0];
+   }
+   function addStyle(parent, id, def) {
+      if (!parent) {
+      return;
+      }
+      var style = doc.createElement('style');
+      style.id = id;
+      style.innerHTML = def;
+      parent.appendChild(style);
+   }
+   function removeStyle(parent, id) {
+      if (!parent) {
+      return;
+      }
+      var style = doc.getElementById(id);
+      if (!style) {
+      return;
+      }
+      parent.removeChild(style);
+   }
+   addStyle(getParent(), STYLE_ID, style);
+   setTimeout(function() {
+      removeStyle(getParent(), STYLE_ID);
+   }, timeout);
+   }(window, document, "body {opacity: 0 !important}", 3000));
+</script>
   <script src="https://assets.adobedtm.com/08c6c96e8270/b7eb7c86dd3c/launch-44cbe266a686-development.min.js" async></script>
     <title>React App</title>
   </head>
